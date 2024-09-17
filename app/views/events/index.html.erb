@@ -1,0 +1,18 @@
+<h1>Google Calendar Events</h1>
+<% if @events.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Summary</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+     <%= render partial: 'event', collection: @events %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No events found.</p>
+<% end %>

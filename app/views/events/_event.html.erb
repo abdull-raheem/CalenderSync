@@ -1,0 +1,12 @@
+<tr>
+    <td><%= event['summary'] || 'No Title'%></td>
+    <td><%= event['start']['dateTime'] %></td>
+    <td><%= event['end']['dateTime'] %></td>
+    <td><%= event['description'] || 'No Description' %></td>
+    <td>
+      <%= link_to 'Edit', edit_event_path(event['id']), class: 'btn btn-warning' %>
+    </td>
+    <td>
+    <%= button_to 'Delete', event_path(event['id']), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </td>
+</tr>

@@ -1,0 +1,8 @@
+<h1>Edit Event</h1>
+
+
+<%= render 'form',
+           form_url: event_path(@event['id']),
+           form_method: :patch,
+           submit_button_text: 'Update Event',
+           event: @event %>

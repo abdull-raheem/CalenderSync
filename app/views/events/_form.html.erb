@@ -1,0 +1,34 @@
+<%= form_with url: form_url, method: form_method, local: true do |f| %>
+  <div class="form-group">
+    <%= label_tag :summary, 'Event Title' %>
+    <%= text_field_tag :summary, @event['summary'] || '', class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :location, 'Location' %>
+    <%= text_field_tag :location, @event['location'] || '', class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :description, 'Description' %>
+    <%= text_area_tag :description, @event['description'] || '', class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :start_time, 'Start Time' %>
+    <%= datetime_local_field_tag :start_time,
+          @event.dig('start', 'dateTime')&.to_datetime,
+          class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :end_time, 'End Time' %>
+    <%= datetime_local_field_tag :end_time,
+          @event.dig('end', 'dateTime')&.to_datetime,
+          class: 'form-control', required: true %>
+  </div>
+
+  <%= submit_tag submit_button_text, class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to 'Back to Events', events_path, class: 'btn btn-secondary mt-3' %>

@@ -18,6 +18,14 @@
   </head>
 
   <body>
-    <%= yield %>
+
+   <%= render partial: 'navbar/nav' %>
+    <div class="container">
+      <div class= "alert"><%= alert %></div>
+      <% if notice %>
+        <%= render 'layouts/alert' %>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>
