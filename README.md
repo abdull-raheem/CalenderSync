@@ -18,9 +18,6 @@ The Calendar Sync project is a Ruby on Rails application that integrates with Go
 - **Devise**: Authentication and user management
 - **OmniAuth**: Google OAuth 2.0 integration
 - **Google Calendar API**: For calendar event management
-- **RSpec**: Testing framework
-- **FactoryBot**: Test data generation
-- **WebMock**: HTTP request stubbing (alternative mocking approach in use)
 
 ## Setup and Installation
 
