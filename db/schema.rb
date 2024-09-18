@@ -10,7 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_16_193951) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_17_150740) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "calendars", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "google_calendar_id"
+    t.string "name"
+    t.string "timezone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["google_calendar_id"], name: "index_calendars_on_google_calendar_id", unique: true
+    t.index ["user_id"], name: "index_calendars_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "calendar_id", null: false
+    t.string "google_event_id"
+    t.string "title"
+    t.text "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string "location"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_id"], name: "index_events_on_calendar_id"
+    t.index ["google_event_id"], name: "index_events_on_google_event_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -27,4 +56,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_16_193951) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "calendars", "users"
+  add_foreign_key "events", "calendars"
 end

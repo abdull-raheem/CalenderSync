@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   }
 
 
-  resources :events, only: [ :index, :create, :update, :destroy, :new, :edit ]
+  resources :calendars do
+    resources :events
+  end
 
-
+   post '/webhooks/google_calendar', to: 'webhooks#google_calendar'
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
@@ -16,5 +18,5 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
    # Defines the root path route ("/")
-   root "events#index"
+   root "calendars#index"
 end

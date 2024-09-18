@@ -1,7 +1,1 @@
-<h1>Create New Event</h1>
-
-<%= render 'form',
-           form_url: events_path,
-           form_method: :post,
-           submit_button_text: 'Create Event',
-           event: @event %>
+<%= render 'form', event: @event, calendar: @calendar %>

@@ -1,0 +1,29 @@
+
+<%= form_with url: calendar_event_path(@calendar, @event['id']), method: :patch, local: true do %>
+  <div class="form-group">
+    <label for="summary">Event Title</label>
+    <input type="text" name="event[summary]" id="summary" value="<%= @event['summary'] %>" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input type="text" name="event[location]" id="location" value="<%= @event['location'] %>" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea name="event[description]" id="description" class="form-control"><%= @event['description'] %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="start_time">Start Time</label>
+    <input type="datetime-local" name="event[start_time]" id="start_time" value="<%= DateTime.parse(@event['start']['dateTime'] || @event['start']['date']).strftime('%Y-%m-%dT%H:%M') %>" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="end_time">End Time</label>
+    <input type="datetime-local" name="event[end_time]" id="end_time" value="<%= DateTime.parse(@event['end']['dateTime'] || @event['end']['date']).strftime('%Y-%m-%dT%H:%M') %>" class="form-control" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update Event</button>
+<% end %>

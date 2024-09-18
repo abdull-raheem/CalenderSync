@@ -1,0 +1,21 @@
+<h1><%= @calendar.name %> - Events</h1>
+
+<%= link_to 'New Event', new_calendar_event_path(@calendar), class: 'btn btn-primary' %>
+
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Location</th>
+      <th>Description</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: 'event', collection: @events %>
+  </tbody>
+</table>
+

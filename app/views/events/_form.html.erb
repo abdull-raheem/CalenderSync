@@ -1,34 +1,48 @@
-<%= form_with url: form_url, method: form_method, local: true do |f| %>
+<h1><%= @event.id ? 'Edit Event' : 'New Event' %></h1>
+
+<%= form_with url: @event.id ? calendar_event_path(@calendar, @event.id) : calendar_events_path(@calendar), method: @event.id ? :patch : :post, local: true do |f| %>
   <div class="form-group">
-    <%= label_tag :summary, 'Event Title' %>
-    <%= text_field_tag :summary, @event['summary'] || '', class: 'form-control', required: true %>
+    <%= f.label :summary, 'Event Title' %>
+    <%= f.text_field :summary, value: @event.summary, class: 'form-control', required: true %>
   </div>
 
   <div class="form-group">
-    <%= label_tag :location, 'Location' %>
-    <%= text_field_tag :location, @event['location'] || '', class: 'form-control' %>
+    <%= f.label :location, 'Location' %>
+    <%= f.text_field :location, value: @event.location, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= label_tag :description, 'Description' %>
-    <%= text_area_tag :description, @event['description'] || '', class: 'form-control' %>
+    <%= f.label :description, 'Description' %>
+    <%= f.text_area :description, value: @event.description, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= label_tag :start_time, 'Start Time' %>
-    <%= datetime_local_field_tag :start_time,
-          @event.dig('start', 'dateTime')&.to_datetime,
-          class: 'form-control', required: true %>
+    <%= f.label :start_time, 'Start Time' %>
+    <%
+      start_time = @event.start['dateTime'] || @event.start['date']
+      start_time_value = begin
+                           DateTime.parse(start_time) if start_time.present?
+                         rescue ArgumentError, TypeError
+                           nil
+                         end
+    %>
+    <%= f.datetime_local_field :start_time, value: start_time_value&.strftime('%Y-%m-%dT%H:%M'), class: 'form-control', required: true %>
   </div>
 
   <div class="form-group">
-    <%= label_tag :end_time, 'End Time' %>
-    <%= datetime_local_field_tag :end_time,
-          @event.dig('end', 'dateTime')&.to_datetime,
-          class: 'form-control', required: true %>
+    <%= f.label :end_time, 'End Time' %>
+    <%
+      end_time = @event.end['dateTime'] || @event.end['date']
+      end_time_value = begin
+                         DateTime.parse(end_time) if end_time.present?
+                       rescue ArgumentError, TypeError
+                         nil
+                       end
+    %>
+    <%= f.datetime_local_field :end_time, value: end_time_value&.strftime('%Y-%m-%dT%H:%M'), class: 'form-control', required: true %>
   </div>
 
-  <%= submit_tag submit_button_text, class: 'btn btn-primary' %>
+  <%= f.submit @event.id ? 'Update Event' : 'Create Event', class: 'btn btn-primary' %>
 <% end %>
 
-<%= link_to 'Back to Events', events_path, class: 'btn btn-secondary mt-3' %>
+<%= link_to 'Back to Events', calendar_events_path(@calendar), class: 'btn btn-secondary mt-3' %>

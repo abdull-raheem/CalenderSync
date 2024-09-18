@@ -61,8 +61,3 @@ The Calendar Sync project is a Ruby on Rails application that integrates with Go
     ```bash
     rails s
 
-### Testing
-
-In order to run Test cases run the below command
-  ```bash
-    rspec
